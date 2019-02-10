@@ -14,6 +14,8 @@ public interface ChargingStationService {
 
     List<ChargingStation> findChargingStationByZipCode(String zipCode);
 
+    List<ChargingStation> findChargingStationByGeoLocation(String longitude, String latitude, double distance);
+
     ChargingStation addChargingStations(ChargingStationDto chargingStationDto);
 
 }

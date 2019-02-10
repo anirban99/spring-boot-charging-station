@@ -5,6 +5,9 @@ import com.example.chargingstation.model.ChargingStation;
 import com.example.chargingstation.model.ChargingStationDto;
 import com.example.chargingstation.service.ChargingStationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.geo.Distance;
+import org.springframework.data.geo.Metrics;
+import org.springframework.data.geo.Point;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +26,7 @@ public class ChargingStationController {
     }
 
     /** GET request to return all appointments **/
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(path = "/", method = RequestMethod.GET)
     List<ChargingStation> getAllChargingStations() {
         return chargingStationService.findAllChargingStations();
     }
@@ -38,6 +41,15 @@ public class ChargingStationController {
     @RequestMapping(path = "/zipcode/{zipCode}", method = RequestMethod.GET)
     public List<ChargingStation> getChargingStationByZipCode(@PathVariable String zipCode) {
         return chargingStationService.findChargingStationByZipCode(zipCode);
+    }
+
+    /** GET request to return charging stations based a perimeter around a given geolocation **/
+    @RequestMapping(method = RequestMethod.GET)
+    public final List<ChargingStation> getChargingStationByGeoLocation(
+            @RequestParam("longitude") String longitude,
+            @RequestParam("latitude") String latitude,
+            @RequestParam("distance") double distance) {
+        return chargingStationService.findChargingStationByGeoLocation(longitude, latitude, distance);
     }
 
     /** POST request to add new charging station **/
