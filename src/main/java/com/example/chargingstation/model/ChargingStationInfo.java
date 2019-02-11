@@ -4,13 +4,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 
 @Document(collection = "charging_stations")
-public class ChargingStationDto{
+public class ChargingStationInfo {
 
     private String zipCode;
     private String longitude;
     private String latitude;
 
-    public ChargingStationDto() {
+    public ChargingStationInfo() {
     }
 
     public String getZipCode() {

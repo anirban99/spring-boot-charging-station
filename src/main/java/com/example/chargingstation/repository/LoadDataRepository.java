@@ -1,4 +1,4 @@
-package com.example.chargingstation.dao;
+package com.example.chargingstation.repository;
 
 import com.example.chargingstation.model.ChargingStation;
 import lombok.extern.slf4j.Slf4j;

@@ -1,7 +1,7 @@
 package com.example.chargingstation.service;
 
 import com.example.chargingstation.model.ChargingStation;
-import com.example.chargingstation.model.ChargingStationDto;
+import com.example.chargingstation.model.ChargingStationInfo;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,6 +16,6 @@ public interface ChargingStationService {
 
     List<ChargingStation> findChargingStationByGeoLocation(String longitude, String latitude, double distance);
 
-    ChargingStation addChargingStations(ChargingStationDto chargingStationDto);
+    ChargingStation addChargingStations(ChargingStationInfo chargingStationInfo);
 
 }

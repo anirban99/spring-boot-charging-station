@@ -1,20 +1,17 @@
 package com.example.chargingstation.ut.dao;
 
-import com.example.chargingstation.dao.ChargingStationRepository;
+import com.example.chargingstation.repository.ChargingStationRepository;
 import com.example.chargingstation.model.ChargingStation;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Example;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.test.context.junit4.SpringRunner;
 import static org.assertj.core.api.Assertions.assertThat;
 import static junit.framework.TestCase.assertEquals;
 import java.util.List;
-import java.util.Optional;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

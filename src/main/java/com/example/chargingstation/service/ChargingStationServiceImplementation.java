@@ -1,8 +1,8 @@
 package com.example.chargingstation.service;
 
-import com.example.chargingstation.dao.ChargingStationRepository;
+import com.example.chargingstation.repository.ChargingStationRepository;
 import com.example.chargingstation.model.ChargingStation;
-import com.example.chargingstation.model.ChargingStationDto;
+import com.example.chargingstation.model.ChargingStationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.Metrics;
@@ -10,7 +10,6 @@ import org.springframework.data.geo.Point;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,8 +47,8 @@ public class ChargingStationServiceImplementation implements ChargingStationServ
     }
 
     @Override
-    public ChargingStation addChargingStations(ChargingStationDto chargingStationDto) {
-        return chargingStationRepository.save(new ChargingStation(chargingStationDto.getZipCode(),
-                new GeoJsonPoint(Double.parseDouble(chargingStationDto.getLongitude()), Double.parseDouble(chargingStationDto.getLatitude()))));
+    public ChargingStation addChargingStations(ChargingStationInfo chargingStationInfo) {
+        return chargingStationRepository.save(new ChargingStation(chargingStationInfo.getZipCode(),
+                new GeoJsonPoint(Double.parseDouble(chargingStationInfo.getLongitude()), Double.parseDouble(chargingStationInfo.getLatitude()))));
     }
 }

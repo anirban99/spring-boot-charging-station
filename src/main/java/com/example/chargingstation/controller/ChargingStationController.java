@@ -2,12 +2,9 @@ package com.example.chargingstation.controller;
 
 
 import com.example.chargingstation.model.ChargingStation;
-import com.example.chargingstation.model.ChargingStationDto;
+import com.example.chargingstation.model.ChargingStationInfo;
 import com.example.chargingstation.service.ChargingStationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.geo.Distance;
-import org.springframework.data.geo.Metrics;
-import org.springframework.data.geo.Point;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,7 +24,7 @@ public class ChargingStationController {
 
     /** GET request to return all appointments **/
     @RequestMapping(path = "/", method = RequestMethod.GET)
-    List<ChargingStation> getAllChargingStations() {
+    public List<ChargingStation> getAllChargingStations() {
         return chargingStationService.findAllChargingStations();
     }
 
@@ -45,7 +42,7 @@ public class ChargingStationController {
 
     /** GET request to return charging stations based a perimeter around a given geolocation **/
     @RequestMapping(method = RequestMethod.GET)
-    public final List<ChargingStation> getChargingStationByGeoLocation(
+    public List<ChargingStation> getChargingStationByGeoLocation(
             @RequestParam("longitude") String longitude,
             @RequestParam("latitude") String latitude,
             @RequestParam("distance") double distance) {
@@ -55,8 +52,8 @@ public class ChargingStationController {
     /** POST request to add new charging station **/
     @RequestMapping(method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public ChargingStation addChargingStations(@RequestBody ChargingStationDto chargingStationDto) {
-        return chargingStationService.addChargingStations(chargingStationDto);
+    public ChargingStation addChargingStations(@RequestBody ChargingStationInfo chargingStationInfo) {
+        return chargingStationService.addChargingStations(chargingStationInfo);
     }
 
 }
