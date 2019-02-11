@@ -2,6 +2,9 @@ package com.example.chargingstation.model;
 
 import javax.persistence.Id;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
+import org.springframework.data.mongodb.core.index.GeoSpatialIndexType;
+import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
+import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.Objects;
 
@@ -11,6 +14,9 @@ public class ChargingStation {
 
     private @Id String id;
     private String zipCode;
+
+    @TextIndexed
+    @GeoSpatialIndexed(type = GeoSpatialIndexType.GEO_2DSPHERE)
     private GeoJsonPoint location;
 
     public ChargingStation(String zipCode, GeoJsonPoint location) {
