@@ -13,6 +13,12 @@ public class ChargingStationInfo {
     public ChargingStationInfo() {
     }
 
+    public ChargingStationInfo(String zipCode, String longitude, String latitude) {
+        this.zipCode = zipCode;
+        this.longitude = longitude;
+        this.latitude = latitude;
+    }
+
     public String getZipCode() {
         return zipCode;
     }

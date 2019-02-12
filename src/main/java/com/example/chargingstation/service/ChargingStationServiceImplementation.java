@@ -19,6 +19,9 @@ public class ChargingStationServiceImplementation implements ChargingStationServ
     @Autowired
     ChargingStationRepository chargingStationRepository;
 
+    public ChargingStationServiceImplementation() {
+    }
+
     public ChargingStationServiceImplementation(ChargingStationRepository chargingStationRepository) {
         this.chargingStationRepository = chargingStationRepository;
     }
