@@ -52,3 +52,5 @@ public class ChargingStationServiceImplementation implements ChargingStationServ
                 new GeoJsonPoint(Double.parseDouble(chargingStationInfo.getLongitude()), Double.parseDouble(chargingStationInfo.getLatitude()))));
     }
 }
+
+//https://us-zipcode.api.smartystreets.com/lookup?auth-id=21102174564513388&city=&state="

@@ -19,9 +19,13 @@ public class LoadDataRepository {
     CommandLineRunner initDatabase(ChargingStationRepository chargingStationRepository) {
         return args -> {
             chargingStationRepository.deleteAll();
-            logger.info("Preloading " + chargingStationRepository.save(new ChargingStation("60287", new GeoJsonPoint(Double.valueOf(8.72),Double.valueOf(50.12)))));
-            logger.info("Preloading " + chargingStationRepository.save(new ChargingStation("12345", new GeoJsonPoint(Double.valueOf(13.4),Double.valueOf(52.51)))));
-            logger.info("Preloading " + chargingStationRepository.save(new ChargingStation("80245", new GeoJsonPoint(Double.valueOf(11.56),Double.valueOf(48.14)))));
+            logger.info("Preloading " + chargingStationRepository.save(new ChargingStation("10178", new GeoJsonPoint(Double.valueOf(13.404954),Double.valueOf(52.525008)))));
+            logger.info("Preloading " + chargingStationRepository.save(new ChargingStation("10589", new GeoJsonPoint(Double.valueOf(13.300954),Double.valueOf(52.524008)))));
+            logger.info("Preloading " + chargingStationRepository.save(new ChargingStation("10179", new GeoJsonPoint(Double.valueOf(13.406954),Double.valueOf(52.513008)))));
         };
     }
 }
+
+
+// 13.600954 , 52.534008   zip - 12619
+// 13.700954 , 52.544008   zip - 15366
