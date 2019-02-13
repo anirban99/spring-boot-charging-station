@@ -36,7 +36,9 @@ http://localhost:8080/api/v1/chargingstations/5c6474c6416326ddf8f10221
 
 http://localhost:8080/api/v1/chargingstations/lookup?zipcode=10589
 
-4.**GET** request to return charging stations based a perimeter around a given geolocation - /api/v1/chargingstations?longitude={longitude}&latitude={latitude}&distance={distance}
+4.**GET** request to return charging stations based a perimeter around a given geolocation -
+ 
+/api/v1/chargingstations?longitude={longitude}&latitude={latitude}&distance={distance}
 
 http://localhost:8080/api/v1/chargingstations?longitude=13.400954&latitude=52.520008&distance=10.0
 
