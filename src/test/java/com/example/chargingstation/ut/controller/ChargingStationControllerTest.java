@@ -55,7 +55,7 @@ public class ChargingStationControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(chargingStationController).build();
     }
 
-    @Test   //done
+    @Test
     public void whenFindByAll_thenAllObjectsAreReturned() throws Exception {
 
         ChargingStation firstChargingStation = new ChargingStation("10178", new GeoJsonPoint(Double.valueOf(13.404954),Double.valueOf(52.525008)));
@@ -77,7 +77,7 @@ public class ChargingStationControllerTest {
         reset(chargingStationService);
     }
 
-    @Test  //done
+    @Test
     public void whenFindById_thenOneObjectIsReturned() throws Exception {
 
         mockMvc.perform(MockMvcRequestBuilders
@@ -87,7 +87,7 @@ public class ChargingStationControllerTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE));
     }
 
-    @Test  //done maybe
+    @Test
     public void whenFindByValidZipCode_thenOneObjectIsReturned() throws Exception {
 
         ChargingStation chargingStation = new ChargingStation("10589", new GeoJsonPoint(Double.valueOf(13.300954),Double.valueOf(52.524008)));
@@ -97,13 +97,12 @@ public class ChargingStationControllerTest {
         given(chargingStationService.findChargingStationByZipCode(Mockito.any())).willReturn(chargingStations);
 
         mockMvc.perform(MockMvcRequestBuilders
-            .get("/api/v1/chargingstations/zipcode/10589")
+            .get("/api/v1/chargingstations/lookup?zipcode=10589")
             .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$", hasSize(1)));
-//            .andExpect(jsonPath("$.id").exists());
-//            .andExpect(jsonPath("$.zipCode", Matchers.equalTo("10589")));
+            .andExpect(jsonPath("$", hasSize(1)))
+            .andExpect(jsonPath("$[0].zipCode", Matchers.equalTo("10589")));
 
         verify(chargingStationService, VerificationModeFactory.times(1)).findChargingStationByZipCode(Mockito.any());
         reset(chargingStationService);
@@ -119,7 +118,7 @@ public class ChargingStationControllerTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE));
     }
 
-    @Test  //done
+    @Test
     public void saveChargingStation_validUser_ChargingStationIsReturned() throws Exception {
         ChargingStation chargingStation = new ChargingStation("10178", new GeoJsonPoint(Double.valueOf(13.404954),Double.valueOf(52.525008)));
 

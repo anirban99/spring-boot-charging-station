@@ -35,8 +35,8 @@ public class ChargingStationController {
     }
 
     /** GET request to return specific charging stations based on Zip Code **/
-    @RequestMapping(path = "/zipcode/{zipCode}", method = RequestMethod.GET)
-    public List<ChargingStation> getChargingStationByZipCode(@PathVariable String zipCode) {
+    @RequestMapping(path = "/lookup", method = RequestMethod.GET)
+    public List<ChargingStation> getChargingStationByZipCode(@RequestParam("zipcode") String zipCode) {
         return chargingStationService.findChargingStationByZipCode(zipCode);
     }
 

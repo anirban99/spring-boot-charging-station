@@ -1,27 +1,24 @@
 package com.example.chargingstation.ut.service;
 
 import com.example.chargingstation.model.ChargingStation;
-import com.example.chargingstation.model.ChargingStationInfo;
 import com.example.chargingstation.repository.ChargingStationRepository;
 import com.example.chargingstation.service.ChargingStationService;
 import com.example.chargingstation.service.ChargingStationServiceImplementation;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.geo.Distance;
+import org.springframework.data.geo.Metrics;
+import org.springframework.data.geo.Point;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.test.context.junit4.SpringRunner;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
@@ -52,7 +49,7 @@ public class ChargingStationServiceImplementationTest {
 
 
     @Test
-    public void whenFindAll_thenReturnAllRecords(){ //done
+    public void whenFindAll_thenReturnAllRecords(){
 
         ChargingStation firstChargingStation = new ChargingStation("10178", new GeoJsonPoint(Double.valueOf(13.404954),Double.valueOf(52.525008)));
         ChargingStation secondChargingStation = new ChargingStation("10589", new GeoJsonPoint(Double.valueOf(13.300954),Double.valueOf(52.524008)));
@@ -66,32 +63,40 @@ public class ChargingStationServiceImplementationTest {
     }
 
     @Test
-    public void whenInValidId_thenChargingStationShouldNotBeFound(){  //done
+    public void whenFindById_thenChargingStationShouldBeFound(){
 
-        chargingStationService.addChargingStations(new ChargingStationInfo("10178", "13.404954","52.525008"));
+        ChargingStation chargingStation = new ChargingStation("10589", new GeoJsonPoint(Double.valueOf(13.300954),Double.valueOf(52.524008)));
+        chargingStation.setId("11L");
 
-        Optional<ChargingStation> chargingStationList = chargingStationRepository.findById("11L");
-        assertThat(chargingStationList).isEmpty();
+        when(chargingStationRepository.findById(chargingStation.getId())).thenReturn(Optional.of(chargingStation));
 
+        Optional<ChargingStation> result = chargingStationService.findChargingStationById("11L");
+        assertThat(result).isNotEmpty();
     }
 
     @Test
     public void whenFindByZipCode_thenChargingStationShouldBeFound(){
 
-        chargingStationService.addChargingStations(new ChargingStationInfo("10179", "13.406954","52.513008"));
-//        ChargingStation secondChargingStation = new ChargingStation("10589", new GeoJsonPoint(Double.valueOf(13.300954),Double.valueOf(52.524008)));
-//        ChargingStation thirdChargingStation = new ChargingStation("10179", new GeoJsonPoint(Double.valueOf(13.406954),Double.valueOf(52.513008)));
+        ChargingStation firstChargingStation = new ChargingStation("10178", new GeoJsonPoint(Double.valueOf(13.404954),Double.valueOf(52.525008)));
+        ChargingStation secondChargingStation = new ChargingStation("10589", new GeoJsonPoint(Double.valueOf(13.300954),Double.valueOf(52.524008)));
 
-        List<ChargingStation> chargingStationList = chargingStationRepository.findByZipCode("10179");
-//        assertThat(chargingStationList).hasSize(1).extracting(ChargingStation::getZipCode).contains(thirdChargingStation.getZipCode());
-        assertThat(chargingStationList).hasSize(1);
+        when(chargingStationRepository.findByZipCode("10178")).thenReturn(Arrays.asList(firstChargingStation));
+
+        List<ChargingStation> result = chargingStationService.findChargingStationByZipCode("10178");
+        assertThat(result).hasSize(1).extracting(ChargingStation::getZipCode).contains(firstChargingStation.getZipCode());
     }
 
     @Test
-    public void whenAddNewChargeStation_thenNewChargeStationValueReturned(){  //done
+    public void whenFindByChargingStationByGeoLocation_thenNearbyChargingStationShouldBeFound(){
 
-        ChargingStation chargingStation = new ChargingStation("10589", new GeoJsonPoint(Double.valueOf(13.300954),Double.valueOf(52.524008)));
-        when(chargingStationRepository.save(chargingStation)).thenReturn(chargingStation);
+        ChargingStation firstChargingStation = new ChargingStation("10178", new GeoJsonPoint(Double.valueOf(13.404954),Double.valueOf(52.525008)));
+        ChargingStation secondChargingStation = new ChargingStation("10589", new GeoJsonPoint(Double.valueOf(13.300954),Double.valueOf(52.524008)));
+
+        when(chargingStationRepository.findByLocationNear(
+            new Point(Double.valueOf(13.400954), Double.valueOf(52.520008)),
+            new Distance(10.0, Metrics.KILOMETERS))).thenReturn(Arrays.asList(firstChargingStation));
+
+        List<ChargingStation> result = chargingStationService.findChargingStationByGeoLocation("13.400954", "52.520008", 10.0);
+        assertThat(result).hasSize(1).extracting(ChargingStation::getZipCode).contains(firstChargingStation.getZipCode());
     }
-
 }

@@ -19,6 +19,9 @@ public class ChargingStation {
     @GeoSpatialIndexed(type = GeoSpatialIndexType.GEO_2DSPHERE)
     private GeoJsonPoint location;
 
+    public ChargingStation() {
+    }
+
     public ChargingStation(String zipCode, GeoJsonPoint location) {
         this.zipCode = zipCode;
         this.location = location;
