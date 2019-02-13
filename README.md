@@ -26,23 +26,23 @@ Using Jar file as a packaged applicationv:
 
 1.**GET** request to return all charging stations - /api/v1/chargingstations/
 
-http://localhost:PORT/api/v1/chargingstations/
+http://localhost:8080/api/v1/chargingstations/
 
 2.**GET** request to return charging stations based on Id - /api/v1/chargingstations/{chargingStationId}
   
-http://localhost:PORT/api/v1/chargingstations/5c6474c6416326ddf8f10221
+http://localhost:8080/api/v1/chargingstations/5c6474c6416326ddf8f10221
 
 3.**GET** request to return charging stations based on zip code - /api/v1/chargingstations/lookup?zipcode={zipcode}
 
-http://localhost:PORT/api/v1/chargingstations/lookup?zipcode=10589
+http://localhost:8080/api/v1/chargingstations/lookup?zipcode=10589
 
 4.**GET** request to return charging stations based a perimeter around a given geolocation - /api/v1/chargingstations?longitude={longitude}&latitude={latitude}&distance={distance}
 
-http://localhost:PORT/api/v1/chargingstations?longitude=13.400954&latitude=52.520008&distance=10.0
+http://localhost:8080/api/v1/chargingstations?longitude=13.400954&latitude=52.520008&distance=10.0
 
 5.**POST** request to add new charging stations - /api/v1/chargingstations
 
-http://localhost:PORT/api/v1/chargingstations
+http://localhost:8080/api/v1/chargingstations
 
 Content-Type = application/json
 
